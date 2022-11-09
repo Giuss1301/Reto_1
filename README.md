@@ -1,10 +1,13 @@
-# Reto # 1
+1 Reto- NRC2288 - Grupo 2
 
-Proyecto base para el primer reto
+Completar app de conversión de monedas según las indicaciones recibidas.
 
-El código incluye comentarios que explican la estructura del proyecto y los puntos en los que se tiene que trabajar están marcados con un TODO. 
+Entrega presentada por:
 
-El siguiente es un demo de la interfaz a la que se debe llegar (funcionalidades adicionales o mejoras a la interfaz son permitidas):
+Mileimis Elles Barrios
+Carlos Rios Mendoza
+
+(Los otros compañeros no manifestaron interes en participar en el proyecto)
 
 
-https://user-images.githubusercontent.com/115802496/200709680-73c378b3-b849-4d55-86ff-cc662d04714e.mp4
+![Convertidor-de-monedas](https://user-images.githubusercontent.com/115802496/200710738-f362b80c-98e0-4277-984f-5cf75bc6c3cc.gif)
