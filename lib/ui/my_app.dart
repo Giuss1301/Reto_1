@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/converter_page.dart';
 
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -9,12 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Currency converter',
+        title: 'NCR2288 - Convertidor de monedas- Grupo 2',
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        // TODO
-        // ConverterPage es el widget que presenta la página de la aplicación
-        home: const Text('aquí colocamos ConverterPage'));
+        home: const ConverterPage());
+        
   }
 }

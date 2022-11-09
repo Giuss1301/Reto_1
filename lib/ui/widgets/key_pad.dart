@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'one_key.dart';
 
 // en este widget mostramos el keypad y los valores de las monedas
@@ -20,21 +21,26 @@ class KeyPad extends StatefulWidget {
 }
 
 class _KeyPadState extends State<KeyPad> {
+  final formatCurrency = NumberFormat("#,##0.00", "en_US");
+
   // valor de la moneda convertida
   double _currency2 = 0;
   // el valor de la moneda que es introducida en el keypad
   int _currency1 = 0;
-
   // función que cambia el estado del widget (_currency1, _currency2)
   void _onPressed(int k) {
     setState(() {
       if (k == 10) {
-        // TODO
-        // cuando k es 10 se debe volver el estado a cero
+        String convert1 = _currency1.toString();
+        convert1 = convert1.substring(0, convert1.length - 1);
+        _currency1 = int.parse(convert1);
+        _currency2 = _currency1 * widget.rate;
+      } else if (k == 11) {
+        _currency1 = 0;
+        _currency2 = 0;
       } else {
-        // TODO
-        // _currency1 debe cambiar con el keypad
-        // _currency2 debe cambiar de acuerdo con _currency1 y la tasa de cambio
+        _currency1 = int.parse(_currency1.toString() + k.toString());
+        _currency2 = _currency1 * widget.rate;
       }
     });
   }
@@ -66,21 +72,22 @@ class _KeyPadState extends State<KeyPad> {
                   padding: const EdgeInsets.all(8.0),
                   alignment: Alignment.centerRight,
                   child: Text(
-                    _currency1.toString(),
+                    formatCurrency.format(_currency1.toDouble()),
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 35),
+                        fontSize: 20),
                   )),
             ],
           ),
+          //const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('se muestra textCurrency1'),
+                child: Text(widget.textCurrency2),
               ),
               Expanded(
                 child: Container(),
@@ -89,7 +96,8 @@ class _KeyPadState extends State<KeyPad> {
                   padding: const EdgeInsets.all(8.0),
                   alignment: Alignment.centerRight,
                   child: Text(
-                    num.parse(_currency2.toStringAsFixed(4)).toString(),
+                    formatCurrency.format(_currency2.toDouble()),
+                    //num.parse(_currency2.toStringAsFixed(2)).toString(),
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -98,14 +106,15 @@ class _KeyPadState extends State<KeyPad> {
                   ))
             ],
           ),
+          const Divider(),
           Expanded(
             flex: 1,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  // TODO
-                  // en cada OneKey se manda el número y _onPressed para callback
-                  const Text('OneKey para 7, 8 y 9'),
+                  OneKey(number: 7, callback: _onPressed, size: 100),
+                  OneKey(number: 8, callback: _onPressed, size: 100),
+                  OneKey(number: 9, callback: _onPressed, size: 100),
                 ]),
           ),
           Expanded(
@@ -113,9 +122,9 @@ class _KeyPadState extends State<KeyPad> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  // TODO
-                  // en cada OneKey se manda el número y _onPressed para callback
-                  const Text('OneKey para 6, 5 y 4'),
+                  OneKey(number: 4, callback: _onPressed, size: 100),
+                  OneKey(number: 5, callback: _onPressed, size: 100),
+                  OneKey(number: 6, callback: _onPressed, size: 100),
                 ]),
           ),
           Expanded(
@@ -123,36 +132,37 @@ class _KeyPadState extends State<KeyPad> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  // TODO
-                  // en cada OneKey se manda el número y _onPressed para callback
-                  const Text('OneKey para 1, 2 y 3'),
+                  OneKey(number: 1, callback: _onPressed, size: 100),
+                  OneKey(number: 2, callback: _onPressed, size: 100),
+                  OneKey(number: 3, callback: _onPressed, size: 100),
                 ]),
           ),
           Expanded(
             flex: 1,
-            child: Row(children: <Widget>[
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                  child: MaterialButton(
-                      key: const Key("reset"),
-                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                      color: Theme.of(context).colorScheme.secondary,
-                      onPressed: () {
-                        _onPressed(10);
-                      },
-                      child: const Text("Reset",
-                          style: TextStyle(
-                            fontSize: 26.0,
-                            color: Colors.white,
-                          ))),
-                ),
-              ),
-              // TODO
-              // en cada OneKey se manda el número y _onPressed para callback
-              const Text('OneKey para 0'),
-            ]),
-          )
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  IconButton(
+                    onPressed: () => _onPressed(11),
+                    padding:const  EdgeInsets.all(1),
+                    icon: const Icon( 
+                      Icons.cancel_rounded,
+                      color: Color.fromARGB(255, 121, 111, 111),
+                    ),
+                    iconSize: 95,
+                  ),
+                  OneKey(number: 0, callback: _onPressed, size: 100),
+                  IconButton(
+                    padding:const  EdgeInsets.all(0.5),
+                    onPressed: () => _onPressed(10),
+                    icon: const Icon(
+                      Icons.arrow_circle_left_rounded,
+                      color: Color.fromARGB(255, 121, 111, 111),
+                    ),
+                    iconSize: 95,
+                  ),
+                ]),
+          ),
         ]);
   }
 }

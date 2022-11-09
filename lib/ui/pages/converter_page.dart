@@ -21,10 +21,18 @@ class _ConverterPageState extends State<ConverterPage> {
   // función para construir el selector de monedas
   List<Widget> _buildItems() {
     return currencies
-        .map((val) => SelectionItem(
-              title: val,
+        .map((value) => SelectionItem(
+              title: value,
             ))
         .toList();
+  }
+
+  void _onPressed() {
+    setState(() {
+      int currency3 = currency1;
+      currency1 = currency2;
+      currency2 = currency3;
+    });
   }
 
   @override
@@ -32,7 +40,8 @@ class _ConverterPageState extends State<ConverterPage> {
     // El siguiente widget en el arbol es el Scaffold
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Currency converter'),
+          title: const Text('Convertidor de Moneda-Grupo2'),
+          backgroundColor: Colors.grey,
         ),
         body: Column(children: [
           Row(
@@ -44,7 +53,6 @@ class _ConverterPageState extends State<ConverterPage> {
                     selectedIndex: currency1,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     onSelectedItemChanged: (index) {
-                      // aquí cambiamos el estado del widget
                       setState(() {
                         currency1 = index ?? 0;
                       });
@@ -55,6 +63,24 @@ class _ConverterPageState extends State<ConverterPage> {
                       title: currencies[currency1],
                     )),
               ),
+              Image(
+                width: 30,
+                height: 30,
+                image: AssetImage("assets/flags/${currencies[currency1]}.png"),
+              ),
+              IconButton(
+                onPressed: () => _onPressed(),
+                icon: const Icon(
+                  Icons.autorenew_sharp,
+                  color: Colors.black,
+                ),
+                iconSize: 20,
+              ),
+              Image(
+                width: 30,
+                height: 30,
+                image: AssetImage("assets/flags/${currencies[currency2]}.png"),
+              ),
               Expanded(
                 // selector para la segunda moneda
                 child: DirectSelect(
@@ -62,7 +88,6 @@ class _ConverterPageState extends State<ConverterPage> {
                     selectedIndex: currency2,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     onSelectedItemChanged: (index) {
-                      // aquí cambiamos el estado del widget
                       setState(() {
                         currency2 = index ?? 0;
                       });
@@ -75,13 +100,12 @@ class _ConverterPageState extends State<ConverterPage> {
               ),
             ],
           ),
-          const Expanded(
-              // TODO
-              // los nombres de las monedas se pueden obtener en la lista currencies
-              // la tasa de cambio se puede obtener en la estructura de datos rates
+          Expanded(
               child: Center(
-            child: Text(
-                'Aquí incluimos el widget KeyPad, mandando los nombres de las dos monedas y la tasa de cambio'),
+            child: KeyPad(
+                textCurrency1: currencies[currency1],
+                textCurrency2: currencies[currency2],
+                rate: rates[currency1][currency2]),
           ))
         ]));
   }
