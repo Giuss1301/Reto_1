@@ -1,6 +1,6 @@
 #  Reto 1- NRC2288 - Grupo 2
+Se completo la app de conversión de monedas bajo las indicaciones recibidas, adicionalmente se le hizo reajuste de vistas y funcionalidades, se agrego un boton de limpiar todo,uno para borrar y uno para cambiar entre las opciones de monedas elegidas.
 
-Completar app de conversión de monedas según las indicaciones recibidas.
 
 Entrega presentada por:
 
