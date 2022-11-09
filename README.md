@@ -1,10 +1,11 @@
-1 Reto- NRC2288 - Grupo 2
+#  Reto 1- NRC2288 - Grupo 2
 
 Completar app de conversión de monedas según las indicaciones recibidas.
 
 Entrega presentada por:
 
 Mileimis Elles Barrios
+
 Carlos Rios Mendoza
 
 (Los otros compañeros no manifestaron interes en participar en el proyecto)
